@@ -19,6 +19,7 @@ function init(){
  // Keep the library visible and put it immediately after planning/goals.
  const planner=$('#planner'),plan=$('#plannedList')?.closest('.panel'),goals=$('#goalWorkspace'),lib=$('#libraryManage')?.closest('.panel');
  if(planner&&plan)planner.insertBefore(plan,planner.firstElementChild);
+ if(planner&&goals)planner.insertBefore(goals,planner.firstElementChild);
  if(goals){goals.hidden=false;goals.querySelectorAll('.hint').forEach(h=>{if(/Большие результаты/.test(h.textContent))h.remove()})}
  if(lib){lib.querySelectorAll('p.hint').forEach(h=>{if(/Сохранённые задачи доступны/.test(h.textContent))h.remove()})}
  // Goals retain previously saved advanced metadata, but only essential editing is shown.
