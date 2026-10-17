@@ -42,8 +42,7 @@ function persist(){
 }
 function init(){
  const plan=E('#planner');if(!plan)return;
- const panel=document.createElement('div');panel.className='panel';panel.id='goalWorkspace';
- plan.insertBefore(panel,plan.firstElementChild||null);
+ let panel=E('#goalWorkspace');if(!panel){panel=document.createElement('div');panel.className='panel';panel.id='goalWorkspace';plan.insertBefore(panel,plan.firstElementChild||null)}panel.hidden=false;
  const overlay=document.createElement('div');overlay.id='goalEditor';overlay.hidden=true;
  overlay.innerHTML='<div class="goal-dialog"><div class="section-top"><h2>Моя цель</h2><button class="ghost" id="goalClose">✕</button></div><label class="label">Название цели</label><input id="goalTitle" class="field" maxlength="100" placeholder="Например, пробежать 5 км"><label class="label">Зачем мне это?</label><textarea id="goalDesc" class="field" rows="2" maxlength="500"></textarea><label class="label">Срок (необязательно)</label><input id="goalDeadline" type="date" class="field"><label class="label" hidden>Этапы — каждый с новой строки</label><textarea id="goalSteps" class="field" rows="4" placeholder="Начать тренировки&#10;Пробежать 2 км&#10;Пробежать 5 км"></textarea><label class="label" hidden>Связанные привычки</label><div id="goalHabits" class="goal-habits"></div><div class="goal-actions"><button class="secondary" id="goalDelete">Удалить</button><button class="primary" id="goalSave">Сохранить цель</button></div></div>';
  document.body.appendChild(overlay);
