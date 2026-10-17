@@ -6,7 +6,7 @@ function goals(){if(!Array.isArray(state.userGoals))state.userGoals=[];return st
 function draw(){
  const root=E('#goalWorkspace');if(!root)return;
  const gs=goals(),active=gs.filter(g=>!g.completed),done=gs.filter(g=>g.completed);
- root.innerHTML='<div class="section-top"><h2>Мои цели</h2><button class="secondary" id="goalNew">＋ Цель</button></div><p class="hint">Большие результаты складываются из небольших шагов. Целей может быть сколько угодно — или ни одной.</p>'+
+ root.innerHTML='<div class="section-top"><h2>🎯 Мои цели</h2><button class="secondary" id="goalNew">＋ Цель</button></div><p class="hint">Большие результаты складываются из небольших шагов. Целей может быть сколько угодно — или ни одной.</p>'+
  (active.length?active.map(card).join(''):'<div class="empty">Пока нет целей. Добавь первую, когда будешь готов.</div>')+
  (done.length?'<details><summary>🏆 Достигнутые цели ('+done.length+')</summary>'+done.map(card).join('')+'</details>':'');
  root.querySelector('#goalNew').onclick=()=>edit();
@@ -43,7 +43,7 @@ function persist(){
 function init(){
  const plan=E('#planner');if(!plan)return;
  const panel=document.createElement('div');panel.className='panel';panel.id='goalWorkspace';
- plan.insertBefore(panel,plan.children[1]||null);
+ plan.insertBefore(panel,plan.firstElementChild||null);
  const overlay=document.createElement('div');overlay.id='goalEditor';overlay.hidden=true;
  overlay.innerHTML='<div class="goal-dialog"><div class="section-top"><h2>Моя цель</h2><button class="ghost" id="goalClose">✕</button></div><label class="label">Название цели</label><input id="goalTitle" class="field" maxlength="100" placeholder="Например, пробежать 5 км"><label class="label">Зачем мне это?</label><textarea id="goalDesc" class="field" rows="2" maxlength="500"></textarea><label class="label">Срок (необязательно)</label><input id="goalDeadline" type="date" class="field"><label class="label" hidden>Этапы — каждый с новой строки</label><textarea id="goalSteps" class="field" rows="4" placeholder="Начать тренировки&#10;Пробежать 2 км&#10;Пробежать 5 км"></textarea><label class="label" hidden>Связанные привычки</label><div id="goalHabits" class="goal-habits"></div><div class="goal-actions"><button class="secondary" id="goalDelete">Удалить</button><button class="primary" id="goalSave">Сохранить цель</button></div></div>';
  document.body.appendChild(overlay);
