@@ -1,4 +1,4 @@
-/* Day180 34.6: six ready-made categories, curated suggestions, safe local migration */
+/* Day180 34.7: six ready-made categories, curated suggestions, safe local migration */
 (function(){
 'use strict';
 const GROUPS=[
@@ -49,7 +49,7 @@ function init(){
      return;
    }
  }
- const version=document.getElementById('appVersion');if(version)version.textContent='34.6';
+ const version=document.getElementById('appVersion');if(version)version.textContent='34.7';
  // Refresh only the library view, leaving the user's current day untouched.
  if(typeof renderGroupedLibrary==='function')renderGroupedLibrary();
  if(typeof render==='function')render();
