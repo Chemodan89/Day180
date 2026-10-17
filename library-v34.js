@@ -1,4 +1,4 @@
-/* Day180 34.4: six ready-made categories, curated suggestions, safe local migration */
+/* Day180 34.5: six ready-made categories, curated suggestions, safe local migration */
 (function(){
 'use strict';
 const GROUPS=[
@@ -38,7 +38,7 @@ function init(){
  const categories=GROUPS.map(g=>g[0]);
  // Fixed categories in all creation/editing surfaces; no new management UI.
  for(const id of ['libraryCategory','todayCategory','customCategory']){const e=document.getElementById(id);if(!e)continue;const selected=e.value;e.innerHTML=categories.map(c=>'<option>'+c+'</option>').join('');if(categories.includes(selected))e.value=selected}
- const version=document.getElementById('appVersion');if(version)version.textContent='34.4';
+ const version=document.getElementById('appVersion');if(version)version.textContent='34.5';
  // Refresh only the library view, leaving the user's current day untouched.
  if(typeof renderGroupedLibrary==='function')renderGroupedLibrary();
  if(typeof render==='function')render();
