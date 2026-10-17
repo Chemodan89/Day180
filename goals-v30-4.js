@@ -15,13 +15,9 @@ function draw(){
  root.querySelectorAll('[data-goal-complete]').forEach(b=>b.onclick=()=>{let g=gs.find(x=>x.id===b.dataset.goalComplete);if(g){g.completed=!g.completed;save();draw()}});
 }
 function card(g){
- let steps=Array.isArray(g.steps)?g.steps:[],count=steps.filter(x=>x.done).length,pct=steps.length?Math.round(count/steps.length*100):(g.completed?100:0);
  return '<div class="goal-card"><div class="section-top"><strong>'+safe(g.title)+'</strong><button class="ghost" data-goal-edit="'+safe(g.id)+'">Изменить</button></div>'+
  (g.description?'<p class="hint">'+safe(g.description)+'</p>':'')+
  (g.deadline?'<p class="hint">📅 До '+safe(g.deadline)+'</p>':'')+
- '<div class="goal-meter"><span style="width:'+pct+'%"></span></div><p class="hint">'+count+' из '+steps.length+' этапов · '+pct+'%</p>'+
- steps.map(st=>'<label class="goal-step"><input type="checkbox" data-goal-step="'+safe(g.id)+'" data-step-id="'+safe(st.id)+'" '+(st.done?'checked':'')+'><span>'+safe(st.title)+'</span></label>').join('')+
- (g.habits?.length?'<p class="hint">🔗 Привычки: '+g.habits.map(safe).join(' · ')+'</p>':'')+
  '<button class="secondary" data-goal-complete="'+safe(g.id)+'">'+(g.completed?'↩ Вернуть в активные':'✓ Отметить достигнутой')+'</button></div>'
 }
 function edit(id){
@@ -41,7 +37,7 @@ function persist(){
  let steps=lines.map(name=>{let found=existing.find(x=>x.title===name&&!used.has(x.id));if(found){used.add(found.id);return found}return{id:makeId(),title:name,done:false}});
  let selected=[...E('#goalHabits').querySelectorAll('input:checked')].map(x=>state.library[Number(x.value)]).filter(Boolean);
  if(!g){g={id:makeId(),created:localDate(),completed:false};goals().push(g)}
- Object.assign(g,{title,description:E('#goalDesc').value.trim(),deadline:E('#goalDeadline').value,steps,habits:selected});
+ Object.assign(g,{title,description:E('#goalDesc').value.trim(),deadline:E('#goalDeadline').value});
  save();close();draw()
 }
 function init(){
@@ -49,7 +45,7 @@ function init(){
  const panel=document.createElement('div');panel.className='panel';panel.id='goalWorkspace';
  plan.insertBefore(panel,plan.children[1]||null);
  const overlay=document.createElement('div');overlay.id='goalEditor';overlay.hidden=true;
- overlay.innerHTML='<div class="goal-dialog"><div class="section-top"><h2>Моя цель</h2><button class="ghost" id="goalClose">✕</button></div><label class="label">Название цели</label><input id="goalTitle" class="field" maxlength="100" placeholder="Например, пробежать 5 км"><label class="label">Зачем мне это?</label><textarea id="goalDesc" class="field" rows="2" maxlength="500"></textarea><label class="label">Срок (необязательно)</label><input id="goalDeadline" type="date" class="field"><label class="label">Этапы — каждый с новой строки</label><textarea id="goalSteps" class="field" rows="4" placeholder="Начать тренировки&#10;Пробежать 2 км&#10;Пробежать 5 км"></textarea><label class="label">Связанные привычки</label><div id="goalHabits" class="goal-habits"></div><div class="goal-actions"><button class="secondary" id="goalDelete">Удалить</button><button class="primary" id="goalSave">Сохранить цель</button></div></div>';
+ overlay.innerHTML='<div class="goal-dialog"><div class="section-top"><h2>Моя цель</h2><button class="ghost" id="goalClose">✕</button></div><label class="label">Название цели</label><input id="goalTitle" class="field" maxlength="100" placeholder="Например, пробежать 5 км"><label class="label">Зачем мне это?</label><textarea id="goalDesc" class="field" rows="2" maxlength="500"></textarea><label class="label">Срок (необязательно)</label><input id="goalDeadline" type="date" class="field"><label class="label" hidden>Этапы — каждый с новой строки</label><textarea id="goalSteps" class="field" rows="4" placeholder="Начать тренировки&#10;Пробежать 2 км&#10;Пробежать 5 км"></textarea><label class="label" hidden>Связанные привычки</label><div id="goalHabits" class="goal-habits"></div><div class="goal-actions"><button class="secondary" id="goalDelete">Удалить</button><button class="primary" id="goalSave">Сохранить цель</button></div></div>';
  document.body.appendChild(overlay);
  E('#goalClose').onclick=close;E('#goalSave').onclick=persist;
  E('#goalDelete').onclick=()=>{if(!confirm('Удалить эту цель? Привычки и дневник сохранятся.'))return;state.userGoals=goals().filter(x=>x.id!==overlay.dataset.editId);save();close();draw()};
