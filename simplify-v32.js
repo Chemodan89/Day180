@@ -1,11 +1,11 @@
-/* Day180 32.2 — essentials only, non-destructive UI simplification */
+/* Day180 33.0 — essentials only, non-destructive UI simplification */
 (function(){
 'use strict';
 function init(){
- const $=s=>document.querySelector(s),removePanel=(s)=>{const e=$(s);if(e)e.closest('.panel')?.remove()};
+ const $=s=>document.querySelector(s),removePanel=(s)=>{const e=$(s);if(e){const panel=e.closest('.panel');if(panel)panel.hidden=true}};
  // Keep plan, library and goals; remove starter, helper and yesterday carry-over.
  removePanel('#openStarter');
- $('#carryOver')?.remove();
+ const carry=$('#carryOver');if(carry)carry.hidden=true;
  // Simplify daily screen: retain task list, mood, sleep and journal.
  const task=$('#taskList');
  if(task){const panel=task.closest('.panel');panel?.querySelectorAll('.hint').forEach(h=>{if(/Удерживай|Галочка сохраняется/.test(h.textContent))h.remove()})}
@@ -24,8 +24,10 @@ function init(){
  // Category is the only library habit setting for this streamlined release.
  const library=$('#library');if(library){const obs=new MutationObserver(()=>{library.querySelectorAll('.lib-entry').forEach(row=>{row.querySelector('.v319-edit')?.remove()})});obs.observe(library,{childList:true,subtree:true})}
  // One identical add-flow for Today and Plan: open the same library picker for the selected date.
- const todayAdd=$('#openAddModal');if(todayAdd){todayAdd.onclick=()=>{planning=selected;openPlanAdd()}}
+ const todayAdd=$('#openAddModal');if(todayAdd){todayAdd.onclick=()=>{planning=selected;openPlanAdd();$('#v31PlanLibraryTab')?.click()}}
  const tomorrow=$('#planTomorrow');if(tomorrow){tomorrow.onclick=()=>{planning=addDays(selected,1);setTab('planner');render();}}
+ // Rejected elements stay in the DOM only where legacy renderers require them; never expose them.
+ const style=document.createElement('style');style.textContent='#stats .panel[hidden],#settings .panel[hidden],#planner .panel[hidden],#carryOver[hidden],#goalSteps[hidden],#goalHabits[hidden]{display:none!important}#planner>.panel,#stats>.panel,#today>.panel{margin-bottom:14px}';document.head.appendChild(style);
  // Keep version always clear.
  const v=$('#appVersion');if(v)v.textContent='32.0';
 }
