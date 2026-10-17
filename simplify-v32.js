@@ -1,4 +1,4 @@
-/* Day180 34.1 — essentials only, non-destructive UI simplification */
+/* Day180 34.2 — essentials only, non-destructive UI simplification */
 (function(){
 'use strict';
 function init(){
@@ -10,7 +10,9 @@ function init(){
  const task=$('#taskList');
  if(task){const panel=task.closest('.panel');panel?.querySelectorAll('.hint').forEach(h=>{if(/Удерживай|Галочка сохраняется/.test(h.textContent))h.remove()})}
  // Remove rejected historical dashboards; keep graph, diary and day history.
- ['#weeklyMedals','#categoryStats','#exportJournal'].forEach(removePanel);
+ ['#weeklyMedals','#categoryStats'].forEach(removePanel);
+ const exportButton=$('#exportJournal');if(exportButton)exportButton.hidden=true;
+ const journal=$('#journalHistory')?.closest('.panel');if(journal){journal.hidden=false;journal.querySelectorAll('p.hint').forEach(h=>{if(/скачай дневник|нейросети|загрузи TXT/.test(h.textContent))h.hidden=true})}
  // Remove legacy training entry and clean obsolete explanations.
  removePanel('#replayTour');
  const stats=$('#stats');if(stats){const graph=$('#chart')?.closest('.panel');if(graph)stats.insertBefore(graph,stats.firstElementChild)}
@@ -27,9 +29,9 @@ function init(){
  const todayAdd=$('#openAddModal');if(todayAdd){todayAdd.onclick=()=>{planning=selected;openPlanAdd();$('#v31PlanLibraryTab')?.click()}}
  const tomorrow=$('#planTomorrow');if(tomorrow){tomorrow.onclick=()=>{planning=addDays(selected,1);setTab('planner');render();}}
  // Rejected elements stay in the DOM only where legacy renderers require them; never expose them.
- const style=document.createElement('style');style.textContent='#stats .panel[hidden],#settings .panel[hidden],#planner .panel[hidden],#carryOver[hidden],#goalSteps[hidden],#goalHabits[hidden]{display:none!important}#planner>.panel,#stats>.panel,#today>.panel{margin-bottom:14px}';document.head.appendChild(style);
+ const style=document.createElement('style');style.textContent='#stats .panel[hidden],#settings .panel[hidden],#planner .panel[hidden],#carryOver[hidden],#exportJournal[hidden],#journalHistory~p[hidden],#goalSteps[hidden],#goalHabits[hidden]{display:none!important}#planner>.panel,#stats>.panel,#today>.panel{margin-bottom:14px}';document.head.appendChild(style);
  // Keep version always clear.
- const v=$('#appVersion');if(v)v.textContent='32.0';
+ const v=$('#appVersion');if(v)v.textContent='34.2';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
