@@ -1,4 +1,4 @@
-const CACHE='day180-v31-3-plan-fullscreen';
+const CACHE='day180-v31-4-plan-tabs';
 const ASSETS=['./','./index.html','./goals-v30-4.js','./history-cleanup-v30-4.js','./v31.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png','./icon-180.png'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('day180-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
