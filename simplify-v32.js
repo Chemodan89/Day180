@@ -1,4 +1,4 @@
-/* Day180 34.5 — essentials only, non-destructive UI simplification */
+/* Day180 34.6 — essentials only, non-destructive UI simplification */
 (function(){
 'use strict';
 function init(){
@@ -32,7 +32,7 @@ function init(){
  // Rejected elements stay in the DOM only where legacy renderers require them; never expose them.
  const style=document.createElement('style');style.textContent='#stats .panel[hidden],#settings .panel[hidden],#planner .panel[hidden],#carryOver[hidden],#exportJournal[hidden],#journalHistory~p[hidden],#goalSteps[hidden],#goalHabits[hidden]{display:none!important}#planner>.panel,#stats>.panel,#today>.panel{margin-bottom:14px}';document.head.appendChild(style);
  // Keep version always clear.
- const v=$('#appVersion');if(v)v.textContent='34.5';
+ const v=$('#appVersion');if(v)v.textContent='34.6';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
