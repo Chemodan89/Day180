@@ -1,4 +1,4 @@
-/* Day180 32.1 — essentials only, non-destructive UI simplification */
+/* Day180 32.2 — essentials only, non-destructive UI simplification */
 (function(){
 'use strict';
 function init(){
