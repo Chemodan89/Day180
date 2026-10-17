@@ -29,7 +29,7 @@ function edit(id){
  overlay.dataset.editId=id||'';
  title.value=g?.title||'';desc.value=g?.description||'';deadline.value=g?.deadline||'';
  steps.value=(g?.steps||[]).map(x=>x.title).join('\n');
- habits.innerHTML=(state.library||[]).map((h,i)=>'<label class="goal-habit"><input type="checkbox" value="'+i+'" '+(g?.habits||[]).includes(h)?'checked':'')+'><span>'+safe(h)+'</span></label>').join('');
+ habits.innerHTML=(state.library||[]).map((h,i)=>'<label class="goal-habit"><input type="checkbox" value="'+i+'" '+((g?.habits||[]).includes(h)?'checked':'')+'><span>'+safe(h)+'</span></label>').join('');
  overlay.hidden=false;title.focus();
  E('#goalDelete').hidden=!g;
 }
