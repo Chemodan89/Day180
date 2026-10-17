@@ -52,5 +52,21 @@ function init(){
  const style=document.createElement('style');style.textContent='.goal-card{padding:14px;border:1px solid #38516a;border-radius:17px;background:#ffffff08;margin-top:12px}.goal-card strong{font-size:16px}.goal-meter{height:7px;border-radius:20px;background:#ffffff18;overflow:hidden;margin-top:12px}.goal-meter span{display:block;height:100%;background:var(--mint);border-radius:20px}.goal-step,.goal-habit{display:flex;align-items:center;gap:10px;padding:8px 0}.goal-step input,.goal-habit input{accent-color:var(--mint);width:18px;height:18px}#goalEditor[hidden]{display:none!important}#goalEditor{position:fixed;inset:0;z-index:9999;background:#030b17d9;display:flex;align-items:center;justify-content:center;padding:18px}.goal-dialog{width:min(100%,520px);max-height:90dvh;overflow:auto;border:1px solid #456078;border-radius:24px;padding:20px;background:#18273b;box-shadow:0 20px 80px #0009}.goal-dialog .label{margin-top:12px;display:block}.goal-habits{max-height:145px;overflow:auto}.goal-actions{display:flex;justify-content:space-between;margin-top:18px}';document.head.appendChild(style);
  const observer=new MutationObserver(()=>{if(plan.classList.contains('active')||plan.style.display!=='none')draw()});observer.observe(plan,{attributes:true,attributeFilter:['class','style']});draw();
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+// Ensure the goal action remains usable even if the legacy goal renderer fails to initialize.
+function safeInit(){try{init()}catch(err){
+ console.error('Goals initialization:',err);
+ const root=document.getElementById('goalWorkspace');if(!root)return;
+ root.innerHTML='<div class="section-top"><h2>🎯 Мои цели</h2><button class="secondary" type="button" id="goalNew">＋ Цель</button></div><div id="goalFallbackList"></div>';
+ const drawFallback=()=>{
+  const gs=Array.isArray(state.userGoals)?state.userGoals:[];
+  document.getElementById('goalFallbackList').innerHTML=gs.map(g=>'<div class="goal-card"><strong>'+safe(g.title)+'</strong></div>').join('')||'<p class="hint">Пока нет целей</p>';
+ };
+ document.getElementById('goalNew').onclick=()=>{
+  const title=prompt('Название новой цели');if(!title?.trim())return;
+  if(!Array.isArray(state.userGoals))state.userGoals=[];
+  state.userGoals.push({id:'g'+Date.now(),title:title.trim(),created:localDate(),completed:false});save();drawFallback();
+ };
+ drawFallback();
+}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',safeInit);else safeInit();
 })();
