@@ -296,4 +296,4 @@ starterEl('starterNext').onclick=()=>{if(starterStep==='packs'){buildStarterHabi
 starterEl('starterBack').onclick=()=>{starterStep=starterStep==='habits'?(starterFromHelper?'helperPace':'packs'):starterStep==='helperPace'?'helperTime':'helperArea';renderStarter()};
 starterLayer.addEventListener('change',e=>{if(e.target.matches('[data-norm-select]')){let i=e.target.dataset.normSelect,custom=starterLayer.querySelector(`[data-starter-norm="${i}"]`);custom.hidden=e.target.value!=='__custom';if(!custom.hidden)custom.focus()}if(e.target.matches('[data-starter-check]')){let n=Number(e.target.dataset.starterCheck);if(e.target.checked)starterSelected.add(n);else starterSelected.delete(n)}});
 starterEl('openStarter').onclick=()=>openStarter(false);starterEl('openHelper').onclick=()=>openStarter(true);starterGoalSummary();
-</script></body></html>
+</script><script src="goals-v30-4.js"></script></body></html>
