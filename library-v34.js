@@ -1,4 +1,4 @@
-/* Day180 34.5: six ready-made categories, curated suggestions, safe local migration */
+/* Day180 34.6: six ready-made categories, curated suggestions, safe local migration */
 (function(){
 'use strict';
 const GROUPS=[
@@ -38,7 +38,18 @@ function init(){
  const categories=GROUPS.map(g=>g[0]);
  // Fixed categories in all creation/editing surfaces; no new management UI.
  for(const id of ['libraryCategory','todayCategory','customCategory']){const e=document.getElementById(id);if(!e)continue;const selected=e.value;e.innerHTML=categories.map(c=>'<option>'+c+'</option>').join('');if(categories.includes(selected))e.value=selected}
- const version=document.getElementById('appVersion');if(version)version.textContent='34.5';
+ // Repair an outdated installed PWA shell: new scripts can load into old cached HTML.
+ if(!document.getElementById('forceAppUpdate')||!document.getElementById('goalWorkspace')){
+   const flag='day180-shell-repair-346';
+   if(navigator.onLine&&sessionStorage.getItem(flag)!=='done'){
+     sessionStorage.setItem(flag,'done');
+     const fresh=new URL('./index.html',location.href);
+     fresh.searchParams.set('shell','346');
+     location.replace(fresh.href);
+     return;
+   }
+ }
+ const version=document.getElementById('appVersion');if(version)version.textContent='34.6';
  // Refresh only the library view, leaving the user's current day untouched.
  if(typeof renderGroupedLibrary==='function')renderGroupedLibrary();
  if(typeof render==='function')render();
