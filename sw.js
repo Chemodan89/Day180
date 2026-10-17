@@ -1,4 +1,4 @@
-const CACHE='day180-v34-6-shell-repair';
+const CACHE='day180-v34-7-goals-button';
 const ASSETS=['./index.html','./goals-v30-4.js','./simplify-v32.js','./library-v34.js','./manifest.webmanifest','./icon.svg'];
 self.addEventListener('install',event=>{
  event.waitUntil(caches.open(CACHE).then(async cache=>{
