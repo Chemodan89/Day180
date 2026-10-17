@@ -1,4 +1,4 @@
-/* Day180 32.0 — essentials only, non-destructive UI simplification */
+/* Day180 32.1 — essentials only, non-destructive UI simplification */
 (function(){
 'use strict';
 function init(){
@@ -23,6 +23,9 @@ function init(){
  const editor=$('#goalEditor');if(editor){['#goalSteps','#goalHabits'].forEach(s=>{const e=$(s);if(e){e.hidden=true;const label=e.previousElementSibling;if(label?.tagName==='LABEL')label.hidden=true}})}
  // Category is the only library habit setting for this streamlined release.
  const library=$('#library');if(library){const obs=new MutationObserver(()=>{library.querySelectorAll('.lib-entry').forEach(row=>{row.querySelector('.v319-edit')?.remove()})});obs.observe(library,{childList:true,subtree:true})}
+ // One identical add-flow for Today and Plan: open the same library picker for the selected date.
+ const todayAdd=$('#openAddModal');if(todayAdd){todayAdd.onclick=()=>{planning=selected;openPlanAdd()}}
+ const tomorrow=$('#planTomorrow');if(tomorrow){tomorrow.onclick=()=>{planning=addDays(selected,1);setTab('planner');render();}}
  // Keep version always clear.
  const v=$('#appVersion');if(v)v.textContent='32.0';
 }
