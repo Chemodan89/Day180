@@ -5,7 +5,7 @@ const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=
 const today=()=>localDate(), days=()=>state.days||{}, dateOffset=(d,n)=>addDays(d,n);
 function ensure(){state.v31??={};state.v31.habitRules??={};state.v31.habitProgress??={};state.v31.letters??=[];state.v31.reflections??={};state.v31.reflectionTime??='20:30'}
 function pane(parent,title,body){let e=document.createElement('div');e.className='panel v31-panel';e.innerHTML='<div class="section-top"><h2>'+title+'</h2></div>'+body;parent.appendChild(e);return e}
-function refreshVersion(){let v=$('#appVersion');if(v)v.textContent='32.1';document.title='День за днём · 32.1'}
+function refreshVersion(){let v=$('#appVersion');if(v)v.textContent='32.2';document.title='День за днём · 32.2'}
 function plannerIntro(){let b=$('#openStarter'),h=$('#openHelper');if(!b||!h)return;let parent=b.closest('.panel');parent.classList.add('v31-intro');let header=parent.querySelector('h2');if(header)header.textContent='Твой путь начинается здесь';let desc=parent.querySelector('p.hint');if(desc)desc.textContent='Выбери готовую подборку или ответь на несколько вопросов — мы поможем найти подходящие привычки.';let wrap=document.createElement('div');wrap.className='v31-choice';b.parentNode.insertBefore(wrap,b);wrap.append(b,h);b.textContent='🎯 Готовые планы';h.textContent='✨ Подобрать мне';let goal=$('#goalWorkspace');if(goal)goal.classList.add('v31-goals')}
 function rules(){ensure();return state.v31.habitRules}
 function progress(){ensure();return state.v31.habitProgress}
