@@ -1,1 +1,15 @@
-{"name":"6 месяцев","short_name":"6 месяцев","description":"Личный челлендж на 180 дней: привычки, цели и ежедневный прогресс","lang":"ru","start_url":"./","scope":"./","display":"standalone","background_color":"#101914","theme_color":"#101914","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}
+{
+  "name": "6 месяцев",
+  "short_name": "6 месяцев",
+  "description": "Личный челлендж на 180 дней: привычки, цели и ежедневный прогресс",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101914",
+  "theme_color": "#101914",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
